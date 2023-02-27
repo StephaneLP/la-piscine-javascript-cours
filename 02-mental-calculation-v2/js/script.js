@@ -2,30 +2,31 @@ window.addEventListener('load', init)
 
 let stage
 let shapes = []
+let time = 1200
 let descriptionfigures = [
     {
-        type: "Circle", x: 500, y: 400, diametre: 50, width: null, height: null, color: "lightblue",
+        x: 500, y: 400, diametre: 50, color: "lightblue",
     },
     {
-        type: "Circle", x: 800, y: 300, diametre: 60, width: null, height: null, color: "lightgreen",
+        x: 800, y: 300, diametre: 60, color: "lightgreen",
     },
     {
-        type: "Circle", x: 500, y: 600, diametre: 70, width: null, height: null, color: "orange",
+        x: 500, y: 600, diametre: 70, color: "orange",
     },
     {
-        type: "Circle", x: 1000, y: 250, diametre: 80, width: null, height: null, color: "blue",         
+        x: 1000, y: 250, diametre: 80, color: "blue",         
     },
     {
-        type: "Circle", x: 400, y: 250, diametre: 80, width: null, height: null, color: "darkblue",          
+        x: 400, y: 250, diametre: 80, color: "darkblue",          
     },
     {
-        type: "Rectangle", x: 520, y: 250, diametre: null, width: 80, height: 50, color: "darkgreen",
+        x: 520, y: 250, diametre: 100, color: "darkgreen",
     },
     {
-        type: "Rectangle", x: 780, y: 550, diametre: null, width: 50, height: 20, color: "green",
+       x: 780, y: 550, diametre: 30, color: "green",
     },
     {
-        type: "Rectangle", x: 200, y: 420, diametre: null, width: 200, height: 100, color: "yellow",
+        x: 200, y: 420, diametre: 150, color: "yellow",
     }
 ]
 
@@ -39,6 +40,10 @@ function init() {
 
     createjs.Ticker.timingMode = createjs.Ticker.RAF
     createjs.Ticker.addEventListener("tick", () => {
+        time -= 1;
+        if(time==0){
+            alert("Perdu !")
+        }
         animate();
         stage.update();
     })
@@ -47,29 +52,18 @@ function init() {
 function createFigure(descriptionfigures) {
     let figure = new createjs.Shape();
 
-    figure.type = descriptionfigures.type;
     figure.x = descriptionfigures.x;
     figure.y = descriptionfigures.y;
     figure.diametre = descriptionfigures.diametre;
-    figure.width = descriptionfigures.width;
-    figure.height = descriptionfigures.height;
     figure.color = descriptionfigures.color;
 
     figure.animation = true;
     figure.direction = getRandomIntInclusive(1,4);
     figure.valdir = -3;
 
-    switch (figure.type) {
-        case "Circle":
-            figure.graphics.beginFill(figure.color).drawCircle(0, 0, figure.diametre);
-            figure.description = "Disque de couleur " + figure.color;
-            break;
-        case "Rectangle":
-            figure.graphics.beginFill(figure.color).drawRect(0, 0, figure.width, figure.height);
-            figure.description = "Rectangle de couleur " + figure.color;
-            break;
-    }   
-
+    figure.graphics.beginFill(figure.color).drawCircle(0, 0, figure.diametre);
+    figure.description = "Disque de couleur " + figure.color;
+ 
     shapes.push(figure)
     stage.addChild(figure);
 
@@ -81,21 +75,12 @@ function createFigure(descriptionfigures) {
 function animate(){
     for(let i in shapes){
         if(shapes[i].animation){
-            let posx, posy, valx, valy, changeDirection;
+            let posx, posy, val, changeDirection;
 
-            if(shapes[i].type=="Rectangle"){
-                posx = shapes[i].x
-                posy = shapes[i].y
-                valx = shapes[i].width
-                valy = shapes[i].height
-            }
-            if(shapes[i].type=="Circle"){
-                posx = shapes[i].x - shapes[i].diametre
-                posy = shapes[i].y - shapes[i].diametre
-                valx = shapes[i].diametre*2
-                valy = valx
-            }
-            changeDirection = ((posx < 0)||(posx > 1200 - valx)||(posy < 0)||(posy > 800 - valy))
+            posx = shapes[i].x - shapes[i].diametre
+            posy = shapes[i].y - shapes[i].diametre
+            val = shapes[i].diametre*2
+            changeDirection = ((posx < 0)||(posx > 1200 - val)||(posy < 0)||(posy > 800 - val))
 
             switch(shapes[i].direction){
                 case 1:
