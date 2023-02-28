@@ -21,9 +21,19 @@ body {
     overflow: hidden;
 }
 
+h1 {
+    color: white;
+    font-size: 2.5rem;
+}
+
 .main-container {
     text-align: center;
     margin: 1em;
+}
+
+.main-container p {
+    width: 450px;
+    margin: 0 auto;
 }
 
 #demoCanvas {
@@ -31,3 +41,42 @@ body {
     margin-top: 20px;
     box-shadow: 0 0 6px rgba(0, 0, 0, 0.2);
 }
+
+#resultat {
+    display: block;
+    font-size: 4rem;
+    font-weight: bold;
+}
+
+#div-resultat {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    background-color: #1875a3;
+    color: #ffffff;
+    padding: 10px 50px;
+    border-radius: 20px;
+    display: none;
+}
+
+#div-resultat .btn {
+    display: inline-block;
+    text-decoration: none;
+    margin: 10px 0px 20px;
+    padding: 10px 30px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: white;
+    border: 1px solid white;
+    color: #1875a3;
+    border-radius: 5px;
+}
+
+#div-resultat .btn:hover {
+
+    color: white;
+    background-color: #375e72;
+    border: 1px solid white;
+} 
+

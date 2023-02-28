@@ -51,6 +51,7 @@ function init() {
         if(goGame){
             time -= 1;
             if(nombreFigures==0){
+                document.getElementById("resultat").innerText = "Gagné !"
                 document.getElementById("resultat").style.display = "block";
                 goGame = false
             }
