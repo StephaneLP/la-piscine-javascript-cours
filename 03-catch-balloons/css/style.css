@@ -57,7 +57,7 @@ h1 {
 .myCanvas {
     background-color: white;
     box-shadow: 5px 5px 5px rgb(32, 44, 82);
-    overflow: scroll;
+    cursor: crosshair;
 }
 
 #resultat {

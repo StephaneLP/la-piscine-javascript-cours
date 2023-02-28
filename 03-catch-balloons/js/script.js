@@ -1,4 +1,4 @@
-// window.addEventListener('load', init)
+window.addEventListener('load', init)
 
 let stage
 let shapes = []
@@ -76,7 +76,7 @@ function createFigure(descriptionfigures) {
 
     figure.animation = false;
     figure.direction = getRandomIntInclusive(1,4);
-    figure.valdir = 3;
+    figure.valdir = 4;
     figure.clique = false;
 
     figure.graphics.beginFill(figure.color).drawCircle(0, 0, figure.diametre);
@@ -150,7 +150,7 @@ function animate(){
 }
 
 function go(){
-    init()
+    // init()
     if(!goGame){
         for(let i in shapes){
             shapes[i].animation = true;
