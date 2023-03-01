@@ -44,7 +44,7 @@ h1 {
 
 #div-resultat {
     position: absolute;
-    top: 30%;
+    top: 50%;
     left: 50%;
     transform: translate(-50%,-50%);
     background-color: #1875a3;
@@ -68,15 +68,12 @@ h1 {
     font-size: 1.5rem;
     font-weight: bold;
     background-color: white;
-    border: 1px solid white;
     color: #1875a3;
     border-radius: 5px;
 }
 
 #div-resultat .btn:hover {
-
     color: white;
-    background-color: #375e72;
-    border: 1px solid white;
+    background-color: #063c77;
 } 
 
