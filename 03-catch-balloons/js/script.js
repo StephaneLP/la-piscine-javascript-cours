@@ -1,10 +1,5 @@
 window.addEventListener('load', init)
 
-let stage
-let shapes = []
-let time = 1200
-let goGame = false
-let nombreFigures
 let descriptionfigures = [
     {
         x: 520, y: 250, diametre: 100, color: "darkgreen",
@@ -32,25 +27,34 @@ let descriptionfigures = [
     },
 ]
 
+let stage
+let shapes = []
+let time = 1200
+let goGame = false
+let nbBallonsRestants
+
 function init() {
-    nombreFigures = descriptionfigures.length
     let canvas = document.querySelector('.myCanvas');
     stage = new createjs.Stage(canvas);
-    let tempsRestant
 
     for(let i in descriptionfigures){
         createFigure(descriptionfigures[i])
     }
 
+
+    nbBallonsRestants = descriptionfigures.length
+
+
+    let tempsRestant
     createjs.Ticker.timingMode = createjs.Ticker.RAF
     createjs.Ticker.addEventListener("tick", () => {
         if(time%60==0){
             tempsRestant = time/60
-            document.querySelector("#timer").textContent = tempsRestant.toString() + "s"
+            // document.querySelector("#timer").textContent = tempsRestant.toString() + "s"
         }
         if(goGame){
             time -= 1;
-            if(nombreFigures==0){
+            if(nbBallonsRestants==0){
                 document.getElementById("resultat").innerText = "Gagné !"
                 document.getElementById("resultat").style.display = "block";
                 goGame = false
@@ -77,7 +81,7 @@ function createFigure(descriptionfigures) {
 
     figure.animation = false;
     figure.direction = getRandomIntInclusive(1,4);
-    figure.valdir = 4;
+    figure.valdir = 5;
     figure.clique = false;
 
     figure.graphics.beginFill(figure.color).drawCircle(0, 0, figure.diametre);
@@ -87,7 +91,7 @@ function createFigure(descriptionfigures) {
     stage.addChild(figure);
 
     figure.addEventListener("click", (event) => {
-        nombreFigures -= 1
+        nbBallonsRestants -= 1
         event.currentTarget.clique = true
     })
 }
@@ -109,7 +113,7 @@ function animate(){
                     }
                     else if(changeDirection){
                         shapes[i].valdir = shapes[i].valdir*(-1)
-                        shapes[i].direction = getRandomIntInclusive(1,4)
+                        // shapes[i].direction = getRandomIntInclusive(1,4)
                     }
                     shapes[i].y += shapes[i].valdir;
                     break;
@@ -119,7 +123,7 @@ function animate(){
                     }
                     else if(changeDirection){
                         shapes[i].valdir = shapes[i].valdir*(-1)
-                        shapes[i].direction = getRandomIntInclusive(1,4)
+                        // shapes[i].direction = getRandomIntInclusive(1,4)
                     }
                     shapes[i].x += shapes[i].valdir;
                     break;
@@ -129,7 +133,8 @@ function animate(){
                     }
                     else if(changeDirection){
                         shapes[i].valdir = shapes[i].valdir*(-1)
-                        shapes[i].direction = getRandomIntInclusive(1,4)
+                        // shapes[i].direction = getRandomIntInclusive(1,4)
+                        shapes[i].direction = getRandomIntInclusive(3,4)
                     }
                     shapes[i].x += shapes[i].valdir;
                     shapes[i].y += shapes[i].valdir;
@@ -140,7 +145,8 @@ function animate(){
                     }
                     else if(changeDirection){
                         shapes[i].valdir = shapes[i].valdir*(-1)
-                        shapes[i].direction = getRandomIntInclusive(1,4)
+                        // shapes[i].direction = getRandomIntInclusive(1,4)
+                        shapes[i].direction = getRandomIntInclusive(3,4)
                     }
                     shapes[i].x += shapes[i].valdir;
                     shapes[i].y += shapes[i].valdir*(-1);

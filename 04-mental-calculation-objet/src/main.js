@@ -3,34 +3,34 @@ let stageMain
 
 let descContainerRectangles = [
     {
-        x: 45, y: 45, w: 140, h: 75, color: "#ffffff", bgcolor: "#063c77", font: "bold 2.2rem Arial",
+        x: 45, y: 45, w: 140, h: 90, color: "#ffffff", bgcolor: "#063c77", font: "bold 2.2rem Arial",
     },
     {
-        x: 230, y: 45, w: 140, h: 75, color: "#ffffff", bgcolor: "#063c77", font: "bold 2.2rem Arial",
+        x: 230, y: 45, w: 140, h: 90, color: "#ffffff", bgcolor: "#063c77", font: "bold 2.2rem Arial",
     },
     {
-        x: 415, y: 45, w: 140, h: 75, color: "#ffffff", bgcolor: "#063c77", font: "bold 2.2rem Arial",
+        x: 415, y: 45, w: 140, h: 90, color: "#ffffff", bgcolor: "#063c77", font: "bold 2.2rem Arial",
     }
 ]
 
 let descContainerCircles = [
     {
-        x: 115, y: 255, diametre: 70, color: "#000000", bgcolor: "#f19648", font: "bold 2.5rem Arial",
+        x: 115, y: 260, diametre: 70, color: "#000000", bgcolor: "#f19648", font: "bold 2.5rem Arial",
     },
     {
-        x: 300, y: 255, diametre: 70, color: "#000000", bgcolor: "#f5d259", font: "bold 2.5rem Arial",
+        x: 300, y: 260, diametre: 70, color: "#000000", bgcolor: "#f5d259", font: "bold 2.5rem Arial",
     },
     {
-        x: 485, y: 255, diametre: 70, color: "#000000", bgcolor: "#d84f35", font: "bold 2.5rem Arial",
+        x: 485, y: 260, diametre: 70, color: "#000000", bgcolor: "#d84f35", font: "bold 2.5rem Arial",
     },
     {
-        x: 115, y: 460, diametre: 70, color: "#000000", bgcolor: "#23b01c", font: "bold 2.5rem Arial",
+        x: 115, y: 470, diametre: 70, color: "#000000", bgcolor: "#23b01c", font: "bold 2.5rem Arial",
     },
     {
-        x: 300, y: 460, diametre: 70, color: "#000000", bgcolor: "#65e95e", font: "bold 2.5rem Arial",
+        x: 300, y: 470, diametre: 70, color: "#000000", bgcolor: "#65e95e", font: "bold 2.5rem Arial",
     },
     {
-        x: 485, y: 460, diametre: 70, color: "#000000", bgcolor: "#31bd91", font: "bold 2.5rem Arial",
+        x: 485, y: 470, diametre: 70, color: "#000000", bgcolor: "#31bd91", font: "bold 2.5rem Arial",
     }
 ]
 
@@ -38,31 +38,28 @@ let containerRectangles = []
 let containerCircles = []
 
 export default function main(stage) {
-    let min = 5
-    let max = 15
-    let delta = 5
-
     stageMain = stage
+
+    // Initialisation des figures
     createRectangles(descContainerRectangles)
     createCircles(descContainerCircles)
 
-    let reponse = initCircles(min,max)
-    initRectangles(reponse, delta)
-    initClickListener(reponse)
-    
+    // Calcul des valeurs et initialisation des listeners
+    goGame()
+
+    // Nouvelle partie
+    let myBtn = document.getElementById("btn")
+    myBtn.addEventListener("click", () =>{
+        document.getElementById("div-resultat").style.display = "none"
+        goGame()
+    })
+
+    createjs.Ticker.timingMode = createjs.Ticker.RAF
+    createjs.Ticker.addEventListener("tick", () => {
+        stage.update()
+    })
+
     return stageMain
-}
-
-function initClickListener(reponse){
-    let msg = ""
-
-    for(let index in containerRectangles){
-        containerRectangles[index].addEventListener('click', (e) => {
-            msg = (parseInt(containerRectangles[index].textRectangle.text) == reponse ? "Gagné!" : "Perdu!")    
-            document.getElementById("resultat").innerText = msg
-            document.getElementById("div-resultat").style.display = "block";
-        })
-    }
 }
 
 //////////////////////////////////////////////////////
@@ -89,6 +86,7 @@ function createRectangles(tabDescription){
         containerRectangle.y = tabDescription[i].y
         containerRectangle.textRectangle = textRectangle
         // containerRectangle.cursor = "pointer"
+        // containerRectangle.visible = true
 
         containerRectangles.push(containerRectangle)
         stageMain.addChild(containerRectangle)
@@ -114,6 +112,33 @@ function createCircles(tabDescription){
 
         containerCircles.push(containerCircle)
         stageMain.addChild(containerCircle)
+    }
+}
+
+//////////////////////////////////////////////////////
+// LANCEMENT DE LA PARTIE 
+//////////////////////////////////////////////////////
+
+function goGame() {
+    let min = 1
+    let max = 10
+    let delta = 5
+
+    let reponse = initCircles(min,max)
+    initRectangles(reponse, delta)
+    initClickListener(reponse)
+}
+
+function initClickListener(reponse){
+    let msg = ""
+
+    for(let index in containerRectangles){
+        containerRectangles[index].addEventListener('click', (e) => {
+            msg = (parseInt(containerRectangles[index].textRectangle.text) == reponse ? "Gagné!" : "Perdu!")    
+            document.getElementById("resultat").innerText = msg
+            document.getElementById("div-resultat").style.display = "block";
+            e.stopPropagation();
+        })
     }
 }
 

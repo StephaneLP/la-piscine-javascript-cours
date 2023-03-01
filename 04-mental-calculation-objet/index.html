@@ -14,13 +14,18 @@
 <body>
     <div class="main-container">
         <h1>Calcul Mental</h1>
-        <p>Veuillez sommer les nombres présents dans les boules, puis choisir la réponse dans le bon rectangle.</p>
+        <p>Veuillez sommer les nombres présents dans les boules, puis cliquer votre réponse dans le bon rectangle.</p>
+        <div class="infos">
+            <a class="btn" onmousedown="go()" href="#">Go</a>
+            <div id="lvl"></div>
+            <div id="timer"></div>
+        </div>        
         <canvas id="demoCanvas" width="600" height="600">
             Désolé, votre navigateur ne prend pas en charge &lt;canvas&gt;.
         </canvas>
         <div id="div-resultat">
             <span id="resultat"></span>
-            <a href="#" class="btn" onclick="test()">Rejouer</a>
+            <a href="#" id="btn">Rejouer</a>
         </div>
     </div>
 </body>
