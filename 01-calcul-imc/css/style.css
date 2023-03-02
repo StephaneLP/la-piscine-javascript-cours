@@ -1,0 +1,28 @@
+/*************************************************/
+/* REGLES                                        */
+/*************************************************/
+
+@font-face {
+    font-family: "Roboto Regular";
+    src: url(../fonts/Roboto/Roboto-Regular.ttf);
+}
+
+@font-face {
+    font-family: "Roboto Bold";
+    src: url(../fonts/Roboto/Roboto-Bold.ttf);
+}
+
+/*************************************************/
+/* BALISES                                       */
+/*************************************************/
+
+body {
+    font-family: "Roboto Regular";
+    margin: 0 auto;
+}
+
+#calcul-imc {
+    width: 600px;
+    height: 400px;
+    margin: 50px auto;
+}
