@@ -2,7 +2,7 @@ window.addEventListener('load', init)
 
 let descriptionfigures = [
     {
-        x: 150, y: 250, diametre: 70, color: "darkgreen",
+        x: 150, y: 250, diametre: 70, color: "darkgrey",
     },
     {
         x: 300, y: 150, diametre: 70, color: "darkblue",          
@@ -24,6 +24,12 @@ let descriptionfigures = [
     },
     {
        x: 780, y: 550, diametre: 70, color: "green",
+    },
+    {
+        x: 600, y: 120, diametre: 70, color: "brown",
+    },
+    {
+       x: 1050, y: 550, diametre: 70, color: "grey",
     },
 ]
 
@@ -127,27 +133,21 @@ function animate(){
         if(shapes[i].animation){
             let posx, posy, val, direction
 
-            posx = shapes[i].x - shapes[i].diametre
-            posy = shapes[i].y - shapes[i].diametre
-            val = shapes[i].diametre*2
 
             if(shapes[i].clique){
                 shapes[i].vitesse += 10
             }
             else{
+                posx = shapes[i].x - shapes[i].diametre
+                posy = shapes[i].y - shapes[i].diametre
+                val = shapes[i].diametre*2
                 direction = shapes[i].direction
-                if(posx < 0){
-                    direction = (direction == 3 ? 1 : 2)
-                }
-                if(posy < 0){
-                    direction = (direction == 2 ? 1 : 3)
-                }
-                if(posx > 1200 - val){
-                    direction = (direction == 1 ? 3 : 4)
-                }
-                if(posy > 700 - val){
-                    direction = (direction == 1 ? 2 : 4)
-                }
+
+                if(posx < 0) direction = (direction == 3 ? 1 : 2)
+                if(posy < 0) direction = (direction == 2 ? 1 : 3)
+                if(posx > 1200 - val) direction = (direction == 1 ? 3 : 4)
+                if(posy > 700 - val) direction = (direction == 1 ? 2 : 4)
+                
                 shapes[i].direction = direction                
             }
 
