@@ -113,6 +113,8 @@ function createFigure(descriptionfigures) {
 
     figure.animation = false
     figure.direction = getRandomIntInclusive(1,4)
+    figure.dirx = Math.pow(-1,getRandomIntInclusive(1,2))
+    figure.diry = Math.pow(-1,getRandomIntInclusive(1,2))
     figure.vitesse = 5
     figure.clique = false
 
@@ -141,35 +143,40 @@ function animate(){
                 posx = shapes[i].x - shapes[i].diametre
                 posy = shapes[i].y - shapes[i].diametre
                 val = shapes[i].diametre*2
-                direction = shapes[i].direction
 
-                if(posx < 0) direction = (direction == 3 ? 1 : 2)
-                if(posy < 0) direction = (direction == 2 ? 1 : 3)
-                if(posx > 1200 - val) direction = (direction == 1 ? 3 : 4)
-                if(posy > 700 - val) direction = (direction == 1 ? 2 : 4)
-                
-                shapes[i].direction = direction                
+                if((posx < 0)||(posx > 1200 - val)) shapes[i].dirx = shapes[i].dirx*(-1)
+                if((posy < 0)||(posy > 700 - val)) shapes[i].diry = shapes[i].diry*(-1)
+
             }
 
-            switch(shapes[i].direction){
-                case 1:
-                    shapes[i].x += shapes[i].vitesse
-                    shapes[i].y += shapes[i].vitesse
-                    break;
-                case 2:
-                    shapes[i].x += shapes[i].vitesse
-                    shapes[i].y += shapes[i].vitesse*(-1)
-                break;
-                case 3:
-                    shapes[i].x += shapes[i].vitesse*(-1)
-                    shapes[i].y += shapes[i].vitesse
-                    break;
-                case 4:
+            shapes[i].x += shapes[i].vitesse*shapes[i].dirx
+            shapes[i].y += shapes[i].vitesse*shapes[i].diry
 
-                    shapes[i].x += shapes[i].vitesse*(-1)
-                    shapes[i].y += shapes[i].vitesse*(-1)
-                    break;
-            }           
+                // direction = shapes[i].direction
+                // if(posx < 0) direction = (direction == 3 ? 1 : 2)
+                // if(posy < 0) direction = (direction == 2 ? 1 : 3)
+                // if(posx > 1200 - val) direction = (direction == 1 ? 3 : 4)
+                // if(posy > 700 - val) direction = (direction == 1 ? 2 : 4)
+                // shapes[i].direction = direction                
+            // switch(shapes[i].direction){
+            //     case 1:
+            //         shapes[i].x += shapes[i].vitesse
+            //         shapes[i].y += shapes[i].vitesse
+            //         break;
+            //     case 2:
+            //         shapes[i].x += shapes[i].vitesse
+            //         shapes[i].y += shapes[i].vitesse*(-1)
+            //     break;
+            //     case 3:
+            //         shapes[i].x += shapes[i].vitesse*(-1)
+            //         shapes[i].y += shapes[i].vitesse
+            //         break;
+            //     case 4:
+
+            //         shapes[i].x += shapes[i].vitesse*(-1)
+            //         shapes[i].y += shapes[i].vitesse*(-1)
+            //         break;
+            // }           
         }
     }
 }
