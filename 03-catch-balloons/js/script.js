@@ -2,34 +2,34 @@ window.addEventListener('load', init)
 
 let descriptionfigures = [
     {
-        x: 150, y: 250, diametre: 70, color: "darkgrey",
+        x: 150, y: 250, rayon: 70, color: "darkgrey",
     },
     {
-        x: 300, y: 150, diametre: 70, color: "darkblue",          
+        x: 300, y: 150, rayon: 70, color: "darkblue",          
     },
     {
-        x: 1000, y: 250, diametre: 70, color: "blue",         
+        x: 1000, y: 250, rayon: 70, color: "blue",         
     },
      {
-        x: 500, y: 600, diametre: 70, color: "orange",
+        x: 500, y: 600, rayon: 70, color: "orange",
     },
     {
-        x: 800, y: 300, diametre: 70, color: "lightgreen",
+        x: 800, y: 300, rayon: 70, color: "lightgreen",
     },
     {
-        x: 500, y: 400, diametre: 70, color: "lightblue",
+        x: 500, y: 400, rayon: 70, color: "lightblue",
     },
     {
-        x: 200, y: 420, diametre: 70, color: "yellow",
+        x: 200, y: 420, rayon: 70, color: "yellow",
     },
     {
-       x: 780, y: 550, diametre: 70, color: "green",
+       x: 780, y: 550, rayon: 70, color: "green",
     },
     {
-        x: 600, y: 120, diametre: 70, color: "brown",
+        x: 600, y: 120, rayon: 70, color: "brown",
     },
     {
-       x: 1050, y: 550, diametre: 70, color: "grey",
+       x: 1050, y: 550, rayon: 70, color: "grey",
     },
 ]
 
@@ -38,6 +38,7 @@ let shapes = []
 let time = 600
 let goGame = false
 let nbBallonsRestants
+let blnAnimation = false
 
 function init() {
     let canvas = document.querySelector('.myCanvas')
@@ -89,16 +90,8 @@ function raz() {
 function Game() {
     raz()
     if(!goGame){
-        for(let i in shapes){
-            shapes[i].animation = true
-        } 
+        blnAnimation = true
         goGame = true      
-    }
-    else{
-        for(let i in shapes){
-            shapes[i].animation = false
-        }  
-
     }
     document.getElementById("resultat").style.display = "none"
 }
@@ -108,17 +101,17 @@ function createFigure(descriptionfigures) {
 
     figure.x = descriptionfigures.x
     figure.y = descriptionfigures.y
-    figure.diametre = descriptionfigures.diametre
+    figure.rayon = descriptionfigures.rayon
     figure.color = descriptionfigures.color
 
-    figure.animation = false
+    // figure.animation = false
     figure.direction = getRandomIntInclusive(1,4)
     figure.dirx = Math.pow(-1,getRandomIntInclusive(1,2))
     figure.diry = Math.pow(-1,getRandomIntInclusive(1,2))
     figure.vitesse = 5
     figure.clique = false
 
-    figure.graphics.beginFill(figure.color).drawCircle(0, 0, figure.diametre)
+    figure.graphics.beginFill(figure.color).drawCircle(0, 0, figure.rayon)
     figure.description = "Disque de couleur " + figure.color
  
     shapes.push(figure)
@@ -131,56 +124,48 @@ function createFigure(descriptionfigures) {
 }
 
 function animate(){
-    for(let i in shapes){
-        if(shapes[i].animation){
-            let posx, posy, val, direction
-
+    if(blnAnimation){
+        for(let i in shapes){
+            let posx, posy, rayon, diametre, distance
 
             if(shapes[i].clique){
                 shapes[i].vitesse += 10
             }
             else{
-                posx = shapes[i].x - shapes[i].diametre
-                posy = shapes[i].y - shapes[i].diametre
-                val = shapes[i].diametre*2
+                posx = shapes[i].x
+                posy = shapes[i].y
+                rayon =  shapes[i].rayon
+                diametre = shapes[i].rayon*2
 
-                if((posx < 0)||(posx > 1200 - val)) shapes[i].dirx = shapes[i].dirx*(-1)
-                if((posy < 0)||(posy > 700 - val)) shapes[i].diry = shapes[i].diry*(-1)
+                for(let j in shapes){
+                    if((shapes[j].x!=shapes[i].x)&&(shapes[j].y!=shapes[i].y)){
+                        distance = calculDistance(shapes[i],shapes[j])
+                        if(distance <= diametre){
+                            // shapes[i].x -= shapes[i].vitesse*shapes[i].dirx
+                            // shapes[i].y -= shapes[i].vitesse*shapes[i].diry    
+                            shapes[i].dirx = shapes[i].dirx*(-1)
+                            shapes[i].diry = shapes[i].diry*(-1)                            
+                        }
+                    }                
+                }
 
+                if((posx < rayon)||(posx > 1200 - rayon)) shapes[i].dirx = shapes[i].dirx*(-1)
+                if((posy < rayon)||(posy > 700 - rayon)) shapes[i].diry = shapes[i].diry*(-1)
             }
 
             shapes[i].x += shapes[i].vitesse*shapes[i].dirx
-            shapes[i].y += shapes[i].vitesse*shapes[i].diry
-
-                // direction = shapes[i].direction
-                // if(posx < 0) direction = (direction == 3 ? 1 : 2)
-                // if(posy < 0) direction = (direction == 2 ? 1 : 3)
-                // if(posx > 1200 - val) direction = (direction == 1 ? 3 : 4)
-                // if(posy > 700 - val) direction = (direction == 1 ? 2 : 4)
-                // shapes[i].direction = direction                
-            // switch(shapes[i].direction){
-            //     case 1:
-            //         shapes[i].x += shapes[i].vitesse
-            //         shapes[i].y += shapes[i].vitesse
-            //         break;
-            //     case 2:
-            //         shapes[i].x += shapes[i].vitesse
-            //         shapes[i].y += shapes[i].vitesse*(-1)
-            //     break;
-            //     case 3:
-            //         shapes[i].x += shapes[i].vitesse*(-1)
-            //         shapes[i].y += shapes[i].vitesse
-            //         break;
-            //     case 4:
-
-            //         shapes[i].x += shapes[i].vitesse*(-1)
-            //         shapes[i].y += shapes[i].vitesse*(-1)
-            //         break;
-            // }           
+            shapes[i].y += shapes[i].vitesse*shapes[i].diry          
         }
     }
 }
 
+function calculDistance(circle1,circle2){
+    let dx, dy, hypothnuse
+    dx = circle2.x - circle1.x
+    dy = circle2.y - circle1.y
+    hypothnuse = Math.sqrt(Math.pow(dx,2) + Math.pow(dy,2))
+    return Math.floor(hypothnuse)
+}
 
 function getRandomIntInclusive(min, max) {
     min = Math.ceil(min)
