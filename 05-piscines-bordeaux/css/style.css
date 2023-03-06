@@ -1,0 +1,62 @@
+@font-face {
+    font-family: "Roboto Regular";
+    src: url(../fonts/Roboto/Roboto-Regular.ttf);
+}
+
+body {
+    margin: 0 auto;
+    font-family:'Roboto Regular', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, rgb(123, 123, 232), rgb(44, 44, 85));
+}
+
+header {
+    padding: 40px 0;
+    text-align: center;
+}
+
+h1 {
+    margin: 0 auto;
+    color: white;
+    font-size: 3rem;
+}
+
+.btn {
+    display: inline-block;
+    font-size: 1.8rem;
+    color: white;
+    background-color:  rgb(38, 38, 101);
+    text-decoration: none;
+    padding: 10px 30px;
+    border-radius: 10px;;
+    margin-top: 20px;
+}
+
+.btn:hover {
+    color: rgb(23, 23, 61);
+    background-color:  white;    
+}
+
+#resultat {
+    width: 50%;
+    margin: 0 auto;
+    background-color: #fdfdfd;
+    padding: 20px;
+    border-radius: 10px;;
+}
+
+#resultat p{
+    font-size: 1.5rem;
+    margin: 0;
+}
+
+.nom-piscine {
+    font-size: 1.5rem;
+    font-weight: 600;
+    font-style: italic;
+}
+progress {
+    width: 100%;
+    height: 30px;
+    margin-bottom: 20px;
+    background-color: rgb(46, 106, 46);
+}
