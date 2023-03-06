@@ -104,7 +104,6 @@ function createFigure(descriptionfigures) {
     figure.rayon = descriptionfigures.rayon
     figure.color = descriptionfigures.color
 
-    // figure.animation = false
     figure.direction = getRandomIntInclusive(1,4)
     figure.dirx = Math.pow(-1,getRandomIntInclusive(1,2))
     figure.diry = Math.pow(-1,getRandomIntInclusive(1,2))
@@ -125,35 +124,41 @@ function createFigure(descriptionfigures) {
 
 function animate(){
     if(blnAnimation){
-        for(let i in shapes){
+        msg = ""
+        let nbcircles = circles.length
+        for(let i=0; i<nbcircles; i++){
             let posx, posy, rayon, diametre, distance
 
-            if(shapes[i].clique){
-                shapes[i].vitesse += 10
+            if(circles[i].clique){
+                circles[i].vitesse += 10
             }
             else{
-                posx = shapes[i].x
-                posy = shapes[i].y
-                rayon =  shapes[i].rayon
-                diametre = shapes[i].rayon*2
+                posx = circles[i].x
+                posy = circles[i].y
+                rayon =  circles[i].rayon
+                diametre = circles[i].rayon*2
 
-                for(let j in shapes){
-                    if((shapes[j].x!=shapes[i].x)&&(shapes[j].y!=shapes[i].y)){
-                        distance = calculDistance(shapes[i],shapes[j])
-                        if(distance <= diametre){   
-                            shapes[i].dirx = shapes[i].dirx*(-1)
-                            shapes[i].diry = shapes[i].diry*(-1)                            
+                if(i<nbcircles-1){
+                    for(let j=i+1; j<nbcircles; j++){
+                        distance = calculDistance(circles[i],circles[j])
+                        if(distance <= diametre){
+                            nbcollisions += 1 
+                            circles[i].dirx = circles[i].dirx*(-1)
+                            circles[i].diry = circles[i].diry*(-1)         
+                            circles[j].dirx = circles[j].dirx*(-1)
+                            circles[j].diry = circles[j].diry*(-1)                                                
                         }
-                    }                
+                    }                    
                 }
 
-                if((posx < rayon)||(posx > 1200 - rayon)) shapes[i].dirx = shapes[i].dirx*(-1)
-                if((posy < rayon)||(posy > 700 - rayon)) shapes[i].diry = shapes[i].diry*(-1)
+                if((posx < rayon)||(posx > 1200 - rayon)) circles[i].dirx = circles[i].dirx*(-1)
+                if((posy < rayon)||(posy > 700 - rayon)) circles[i].diry = circles[i].diry*(-1)
             }
-
-            shapes[i].x += shapes[i].vitesse*shapes[i].dirx
-            shapes[i].y += shapes[i].vitesse*shapes[i].diry          
+       
+            circles[i].x += circles[i].vitesse*circles[i].dirx
+            circles[i].y += circles[i].vitesse*circles[i].diry          
         }
+        if(msg!="") alert(msg)
     }
 }
 
