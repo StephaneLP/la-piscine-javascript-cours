@@ -12,16 +12,37 @@ async function fetchData() {
 
         const data = await response.json()
 
-        let piscines = document.querySelectorAll(".res-piscine")
-        for(let i in data.records){
-            piscines[i].childNodes[1].textContent = data.records[i].fields.etablissement_etalib
-            piscines[i].childNodes[3].textContent = data.records[i].fields.fmizonnum + "/" + data.records[i].fields.fmizonmax
-            piscines[i].childNodes[5].value = data.records[i].fields.fmizonnum
-            piscines[i].childNodes[5].max = data.records[i].fields.fmizonmax
-        }
+        displayData(data)
 
     }
     catch(error){
-        console.log("Erreur")
+        errMsg.textContent = `${error}`
+        console.log(error)
     }
+}
+
+function displayData(data) {
+    let piscines = document.querySelectorAll(".res-piscine")
+    let nomPiscine, lieuPiscine, nbNageurs, capacitePiscine
+
+    data.records.sort((a,b)=>{
+        if(a.fields.etablissement_etalib > b.fields.etablissement_etalib){
+            return 1
+        }
+        else{
+            return -1
+        }
+    })
+    
+    for(let i in data.records){
+        nomPiscine = data.records[i].fields.etablissement_etalib
+        lieuPiscine = data.records[i].fields.fmizonlib
+        nbNageurs = data.records[i].fields.fmicourante
+        capacitePiscine = data.records[i].fields.fmizonmax
+
+        piscines[i].childNodes[1].textContent = nomPiscine + " (" + lieuPiscine + ")"
+        piscines[i].childNodes[3].textContent = nbNageurs + "/" + capacitePiscine
+        piscines[i].childNodes[5].value = nbNageurs
+        piscines[i].childNodes[5].max = capacitePiscine
+    }    
 }

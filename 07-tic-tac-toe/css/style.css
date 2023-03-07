@@ -1,0 +1,50 @@
+@font-face {
+    font-family: "Roboto Regular";
+    src: url(../fonts/Roboto/Roboto-Regular.ttf);
+}
+
+body {
+    margin: 0 auto;
+    font-family:'Roboto Regular', Tahoma, Geneva, Verdana, sans-serif;
+    background: linear-gradient(to right, rgb(86, 86, 190), rgb(44, 44, 85));
+}
+
+header {
+    padding: 40px 0;
+    text-align: center;
+}
+
+h1 {
+    margin: 0 auto;
+    color: white;
+    font-size: 3rem;
+}
+
+#tictactoe {
+    width: 60vh;
+    height: 60vh;
+    margin: 0 auto;
+    background-color: #fdfdfd;
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.case {
+    /* background: linear-gradient(to left, rgb(86, 86, 190), rgb(44, 44, 85)); */
+    background-color: orange;
+    width: 33%;
+    height: 33%;
+    border-radius: 10px;
+    font-size: 15vh;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* .case:hover {
+    background: linear-gradient(to right, rgb(86, 86, 190), rgb(44, 44, 85));
+    cursor: pointer;
+} */
