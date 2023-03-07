@@ -25,7 +25,7 @@ h1 {
     height: 60vh;
     margin: 0 auto;
     background-color: #fdfdfd;
-    padding: 8px;
+    padding: 3px;
     border-radius: 10px;
     display: flex;
     flex-direction: row;
@@ -35,7 +35,6 @@ h1 {
 
 .case {
     /* background: linear-gradient(to left, rgb(86, 86, 190), rgb(44, 44, 85)); */
-    background-color: orange;
     width: 33%;
     height: 33%;
     border-radius: 10px;
@@ -44,7 +43,11 @@ h1 {
     cursor: pointer;
 }
 
-/* .case:hover {
-    background: linear-gradient(to right, rgb(86, 86, 190), rgb(44, 44, 85));
+.bgcolor {
+    background-color: rgba(255, 166, 0, 0.884);
+}
+
+.bgcolor:hover {
+    background:  rgba(255, 166, 0, 0.788);
     cursor: pointer;
-} */
+}
