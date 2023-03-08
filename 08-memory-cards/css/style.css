@@ -6,7 +6,7 @@
 body {
     margin: 0 auto;
     font-family:'Roboto Regular', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(to right, rgb(86, 86, 190), rgb(44, 44, 85));
+    background: linear-gradient(to right, rgb(109, 109, 223), rgb(44, 44, 85));
 }
 
 header {
@@ -36,48 +36,50 @@ h1 {
 }
 
 .card {
+    aspect-ratio: 1/1;
     width: 190px;
     height: 190px;
-    border-radius: 10px;
     cursor: pointer;
+    perspective: 1000px;
+    user-select: none;
+    transition: transform 0.2s ease-out;
+  
+}
+
+.card:hover {
+    transform: scale(1.02);
 }
 
 .double-face {
     position: relative;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 0.6s;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.3);
+    pointer-events: none;
 }
 .recto {
-    /* width: 190px;
-    height: 190px;
-    background-color: rgba(255, 166, 0, 0.884);
-    background-image: url(../img/question.svg);
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;   
-    position: absolute; */
+    background-color: rgba(255, 255, 255, 1);
 }
 
 .verso {
-    width: 190px;
-    height: 190px;
-    background-color: rgba(255, 255, 255, 0.884);
-    /* background-image: url(../img/cards/television.svg); */
-    background-size: contain;
-    background-position: center;
-    background-repeat: no-repeat;
-    position: absolute;  
+    background-color: rgba(255, 166, 0, 1);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
 }
 
+.recto, .verso {
+    width: 190px;
+    height: 190px;
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;   
+    position: absolute;
+    border-radius: 5px;
+}
 
-
-
-
-
-
-/* .bgcolor {
-    background-color: rgba(255, 166, 0, 0.884);
-} */
-
-/* .bgcolor:hover {
-    background:  rgba(255, 166, 0, 0.788);
-    cursor: pointer;
-} */
+.active {
+    transform: rotateY(180deg);
+}
