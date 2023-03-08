@@ -70,6 +70,12 @@ function tabTitles(tab){
 }
 console.log("Tableau de tous les titres : " + tabTitles(movies))
 
+function tabTitlesMap(tab){
+    return tab.map(e => e.title)   
+}
+console.log("Tableau de tous les titres avec map : " + tabTitlesMap(movies))
+
+
 // 2. Ecrire une fonction qui prend en parametre une annee et un tableau (movies), et qui retourne un nouveau tableau de titres de film de l'annee specifiee
 function tabTitlesByYear(annee,tab){
     let result = []
