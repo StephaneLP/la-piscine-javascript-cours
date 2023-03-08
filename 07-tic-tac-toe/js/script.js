@@ -1,4 +1,5 @@
 let tabCases = document.querySelectorAll(".case")
+let tabLignesGagnantes = [[0,1,2],[3,4,5],[6,7,8],[0,3,6],[1,4,7],[2,5,8],[0,4,8],[2,4,6]]
 let nbCliques = 0
 
 for(let index in tabCases){
@@ -18,6 +19,7 @@ for(let index in tabCases){
 }
 
 function verification() {
+    let ligneGagnante
     let tabTest = []
     tabTest[0] = tabCases[0].textContent + tabCases[1].textContent + tabCases[2].textContent
     tabTest[1] = tabCases[3].textContent + tabCases[4].textContent + tabCases[5].textContent
@@ -28,14 +30,18 @@ function verification() {
     tabTest[6] = tabCases[0].textContent + tabCases[4].textContent + tabCases[8].textContent
     tabTest[7] = tabCases[2].textContent + tabCases[4].textContent + tabCases[6].textContent
 
-    for(let index in tabTest){
-        console.log(tabTest[index])
-        if(tabTest[index] === "XXX"){
-            afficheLigneGagnante(index)
+    for(let i in tabLignesGagnantes){
+        ligneGagnante = ""
+        for(let j in tabLignesGagnantes[i]){
+            ligneGagnante += tabCases[tabLignesGagnantes[i][j]]
         }
-        if(tabTest[index] === "OOO"){
+        console.log(ligneGagnante)
+        if(ligneGagnante === "XXX"){
+            afficheLigneGagnante(i)
+        }
+        if(ligneGagnante === "OOO"){
             alert("Vainqueur : joueur 2")
-        }
+        }        
     }
 }
 
