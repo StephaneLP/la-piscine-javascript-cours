@@ -123,27 +123,44 @@ h1 {
     transform: translate(-50%,-50%);
     background-color: rgb(45, 45, 94);
     color: rgb(255, 255, 255);
-    font-size: 4rem;
-    font-weight: 600;
-    padding: 10px 30px;
+    padding: 40px;
     border-radius: 10px;
-    display: block; 
+    display: block;
+}
+
+#resultat-div {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100%;
+}
+
+.resultat fieldset {
+    border: 1px solid white;
+    border-radius: 3px;
+    width: 90%;
+}
+
+#resultat-titre {
+    font-size: 1.8rem;
+    font-weight: 600;
+}
+
+#resultat-sous-titre {
+    font-size: 1rem;
+    text-align: justify;
 }
 
 .btn{
     display: inline-block;
     text-decoration: none;
-    font-size: 2rem;
+    font-size: 1.5rem;
     color: rgb(45, 45, 94);
     background-color: white;
     border: 1px solid white;
     padding: 10px 20px;
     border-radius: 5px;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-
 }
 
 .btn:hover {

@@ -16,6 +16,7 @@ let inGame = false
 function main(){
     initCards()
     initListeners()
+    setInterval(afficheTemps,1000)
 }
 
 /****************************************************************************************
@@ -61,14 +62,19 @@ DEBUT ET FIN DU JEU
 
 function goGame(){
     document.querySelector("#resultat").style.display = "none"
+    nbCoups = 0
+    duree = 0
     inGame = true
     isCliquable = true
-    setInterval(afficheTemps,1000)
+    document.querySelector("#duree").textContent = duree
+    document.querySelector("#nbCoups").textContent = nbCoups
 }
 
 function afficheTemps(){
-    duree +=1
-    document.querySelector("#duree").textContent = duree
+    if(inGame){
+        duree +=1
+        document.querySelector("#duree").textContent = duree
+    }
 }
 
 function endGame(){
@@ -79,16 +85,10 @@ function endGame(){
 
     inGame = false
     isCliquable = false
-    nbCoups = 0
-    duree = 0
-
-    let myDiv = document.querySelector("#libelle-resultat")
-
-    .textContent = "Test"
-    document.querySelector("#btnGo").textContent = "Rejouer"
     document.querySelector("#resultat").style.display = "block"
-    document.querySelector("#duree").textContent = "0"
-    document.querySelector("#nbCoups").textContent = "0"
+    document.querySelector("#libelle-resultat").innerHTML = msg
+    document.querySelector("#btnGo").textContent = "Rejouer"
+
 }
 
 /****************************************************************************************
