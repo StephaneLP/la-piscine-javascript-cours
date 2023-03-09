@@ -13,6 +13,16 @@
         <h1>Memory Cards</h1>
     </header>
     <main>
+        <section id="infos">
+            <div>
+                <span>Nombre de coups</span>
+                <span id="nbCoups" class="infos-span">0</span>
+            </div>
+            <div>
+                <span>Durée</span>
+                <span id="duree" class="infos-span">0</span>
+            </div>
+        </section>
         <section id="cards">
             <div class="card hov" data-index="0">
                 <div class="double-face">
@@ -86,8 +96,12 @@
                     <div class="verso"></div>
                 </div>
             </div>
-        </section>
+            <div id="resultat">
+                <div id="libelle-resultat">Bienvenue</div>
+                <a class="btn" href="#" id="btnGo">Commencer</a>
+            </div>
+        </section> 
     </main>
 </body>
-<script src="js/script.js"></script>
+<script type="module" src="js/script.js"></script>
 </html>
