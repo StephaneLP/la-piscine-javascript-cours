@@ -61,7 +61,7 @@ DEBUT ET FIN DU JEU
 ****************************************************************************************/
 
 function goGame(){
-    document.querySelector("#resultat").style.display = "none"
+    document.querySelector("#resultat").style.visibility = "hidden"
     nbCoups = 0
     duree = 0
     inGame = true
@@ -85,10 +85,10 @@ function endGame(){
 
     inGame = false
     isCliquable = false
-    document.querySelector("#resultat").style.display = "block"
+
     document.querySelector("#libelle-resultat").innerHTML = msg
     document.querySelector("#btnGo").textContent = "Rejouer"
-
+    document.querySelector("#resultat").style.visibility = "visible"
 }
 
 /****************************************************************************************

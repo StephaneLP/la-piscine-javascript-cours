@@ -18,6 +18,7 @@ header {
 h1 {
     margin: 0 auto;
     font-size: 3rem;
+    text-shadow: 2px 2px 4px #000000;
 }
 
 #infos {
@@ -125,27 +126,67 @@ h1 {
     color: rgb(255, 255, 255);
     padding: 40px;
     border-radius: 10px;
-    display: block;
-}
-
-#resultat-div {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    height: 100%;
-}
-
-.resultat fieldset {
-    border: 1px solid white;
-    border-radius: 3px;
-    width: 90%;
+    visibility: visible;
 }
 
 #resultat-titre {
     font-size: 1.8rem;
     font-weight: 600;
 }
+
+#regles{
+    font-size: 1rem;
+    font-weight: 200;
+    border-bottom: 1px dotted white;
+    position: relative;
+    display:inline-block
+}
+
+#tooltip-regles {
+    visibility: hidden;
+    background-color: white;
+    color: rgb(45, 45, 94);
+    padding: 5px;
+    border-radius: 10px;
+    position: absolute;
+    width: 400px;
+    top: 40px;
+    left: 50%;
+    margin-left: -200px;
+    /* top: 30px;
+    left: 50%;
+    transform: translate(0,0); */
+
+}
+
+#tooltip-regles::after {
+    content: "  ";
+    position: absolute;
+    bottom: 100%; /* At the bottom of the tooltip */
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color:  transparent transparent white transparent;
+  }
+
+#regles:hover #tooltip-regles {
+    visibility: visible;
+}
+
+
+
+.resultat fieldset {
+    border: 1px solid white;
+    border-radius: 3px;
+    width: 90%;
+    font-size: 1.2rem;
+}
+
 
 #resultat-sous-titre {
     font-size: 1rem;
