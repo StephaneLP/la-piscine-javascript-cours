@@ -2,82 +2,30 @@ import {getRandomIntInclusive, randomArray, initArray} from "./outils.js"
 
 window.addEventListener('load', main)
 
-let tabCases = document.querySelectorAll(".card")
 let tabImages = ["alarmclock","baloon","box","butterfly","hat","paperplane","poolball","radio","rocket","rubikscube","television","tiebow"]
+let tabCases
+let nbCards
+let inGame = false
 let tabCardsImages = []
-let tabImagesCliquees = []
-let firstImage = []
-let secondImage = []
 let nbCoups = 0
 let duree = 0
-let isCliquable = false
 let nbPaires = 0
-let inGame = false
+let isCliquable = false
+let firstImage = []
+let secondImage = []
 
 function main(){
-    // initCards()
-    initListeners()
-    setInterval(afficheTemps,1000)
-}
-
-/****************************************************************************************
-INITIALISATION DES CARTES
-****************************************************************************************/
-
-function initCards(){
-    let tabTirageImages = randomArray(6,tabImages)
-    let tabCardsIndices = initArray(12)
-    tabCardsIndices = randomArray(tabCardsIndices.length,tabCardsIndices)
-
-    for (let i=0; i<tabCases.length; i++){
-        tabCases[i].children[0].children[1].style.backgroundImage = "url('img/question.svg')"
-    }
-
-    for(let i in tabTirageImages){
-        const indice1 = tabCardsIndices[i*2]
-        const indice2 = tabCardsIndices[i*2+1]
-
-        tabCases[indice1].children[0].children[0].style.backgroundImage = "url('img/cards/" + tabTirageImages[i] + ".svg')"
-        tabCases[indice2].children[0].children[0].style.backgroundImage = "url('img/cards/" + tabTirageImages[i] + ".svg')"
-        tabCardsImages[indice1] = tabTirageImages[i]
-        tabCardsImages[indice2] = tabTirageImages[i]
-    }
-}
-
-/****************************************************************************************
-INITIALISATION DES LISTENERS (EVENEMENT CLICK SUR LES CARTES)
-****************************************************************************************/
-
-function initListeners(){
-    for(let i=0; i<tabCases.length; i++){
-        tabCases[i].addEventListener("click",clickCard)
-    }
     document.querySelector("#btnGo").addEventListener("click",(e)=>{
         goGame()
     })
+    afficheModal(true,true)
+    setInterval(afficheTemps,1000)
 }
 
-/****************************************************************************************
-DEBUT ET FIN DU JEU
-****************************************************************************************/
-
-function goGame(){
-    initCards()
-
-    for(let i=0; i<tabImagesCliquees.length; i++){
-        tabCases[tabImagesCliquees[i]].addEventListener("click",clickCard)
-        tabCases[tabImagesCliquees[i]].classList.add("hov")
-        tabCases[tabImagesCliquees[i]].style.cursor = "pointer"
-    }
-    tabImagesCliquees = []
-
-    document.querySelector("#modal-box").style.visibility = "hidden"
-    nbCoups = 0
-    duree = 0
-    inGame = true
-    isCliquable = true
-    document.querySelector("#duree").textContent = duree
-    document.querySelector("#nbCoups").textContent = nbCoups
+function afficheModal(isVisible, isNew){
+    document.querySelector("#modal-box").style.visibility = (isVisible ? "visible" : "hidden")
+    document.querySelector("#modal-box-accueil").style.display = (isNew ? "block" : "none")
+    document.querySelector("#modal-box-msg").style.display = (isNew ? "none" : "block")
 }
 
 function afficheTemps(){
@@ -87,20 +35,85 @@ function afficheTemps(){
     }
 }
 
+/****************************************************************************************
+DEBUT ET FIN DU JEU
+****************************************************************************************/
+
+function goGame(){
+    nbCards = document.querySelector('input[name=lvl]:checked').value
+    createCards()
+    initCards()    
+    initListeners()
+
+    nbCoups = 0
+    duree = 0
+    nbPaires = 0
+    inGame = true
+    isCliquable = true
+    document.querySelector("#duree").textContent = duree
+    document.querySelector("#nbCoups").textContent = nbCoups
+    document.querySelector("#infos").style.visibility = "visible"
+    afficheModal(false,false) 
+}
+
 function endGame(){
     let msg = ""
-    msg = "Vous avez terminé la partie en :<br><br>"
+    msg = "Vous avez terminé la partie en :<br>"
     msg += duree + " secondes<br>"
     msg += nbCoups + " coups"
 
     inGame = false
     isCliquable = false
 
-    document.querySelector("#modal-box-accueil").style.display = "none"
-    document.querySelector("#modal-box-msg").style.display = "block"
     document.querySelector("#modal-box-msg").innerHTML = msg
     document.querySelector("#btnGo").textContent = "Rejouer"
-    document.querySelector("#modal-box").style.visibility = "visible"
+    afficheModal(true,false)
+}
+
+/****************************************************************************************
+CREATION & INITIALISATION DES CARTES ET LISTENERS
+****************************************************************************************/
+
+function createCards(){
+    let section = document.querySelector("#cards")
+    section.replaceChildren()
+    for(let i=0; i<nbCards; i++){
+        let recto = document.createElement("div")
+        recto.className = "recto"
+
+        let verso = document.createElement("div")
+        verso.className = "verso"
+
+        let dblface = document.createElement("div")
+        dblface.className = "double-face"
+        dblface.appendChild(recto)
+        dblface.appendChild(verso)
+
+        let card = document.createElement("div")
+        card.className = "card hov"
+        card.setAttribute("data-index",i)
+        card.appendChild(dblface)
+
+        section.appendChild(card)        
+    }
+    tabCases = document.querySelectorAll(".card")
+}
+
+function initCards(){
+    let tabTirageImages = randomArray(nbCards/2,tabImages)
+    tabTirageImages = tabTirageImages.concat(tabTirageImages)
+    tabCardsImages = randomArray(tabTirageImages.length,tabTirageImages)
+
+    for (let i=0; i<nbCards; i++){
+        tabCases[i].children[0].children[1].style.backgroundImage = "url('img/question.svg')"
+        tabCases[i].children[0].children[0].style.backgroundImage = "url('img/cards/" + tabCardsImages[i] + ".svg')"
+    }
+}
+
+function initListeners(){
+    for(let i=0; i<nbCards; i++){
+        tabCases[i].addEventListener("click",clickCard)
+    }
 }
 
 /****************************************************************************************
@@ -123,8 +136,6 @@ function clickCard(e){
         if(image===firstImage[1]){
             tabCases[indice].removeEventListener("click", clickCard);
             tabCases[firstImage[0]].removeEventListener("click", clickCard);
-            tabImagesCliquees.push(indice)
-            tabImagesCliquees.push(firstImage[0])
             tabCases[indice].classList.remove("hov")
             tabCases[firstImage[0]].classList.remove("hov")
             tabCases[indice].style.cursor = "auto"
@@ -132,7 +143,7 @@ function clickCard(e){
             firstImage = []
             nbPaires +=1
             nbCoups += 1
-            if(nbPaires==2) endGame()
+            if(nbPaires==(nbCards/2)) endGame()
         }
         else{
             secondImage = [indice,image]
